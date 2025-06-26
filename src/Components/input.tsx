@@ -2,7 +2,7 @@ import type { UseFormRegister } from "react-hook-form";
 
 interface InputProps{
     type: string;
-    placeholder: string;
+    placeholder?: string;
     name: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register: UseFormRegister<any>;
@@ -13,7 +13,7 @@ export function Input({name, type, placeholder, register, error}: InputProps){
     return(
         <div>
             <input 
-                className="w-full bg-white rounded-md border-1 px-2 h-8 mb-3"
+                className="w-full bg-white rounded-md border-1 px-2 h-8"
                 type={type}
                 placeholder={placeholder}
                 {...register(name)} 
