@@ -13,6 +13,7 @@ export function Input({name, type, placeholder, register, error}: InputProps){
     return(
         <div>
             <input 
+                className="w-full bg-white rounded-md border-1 px-2 h-8 mb-3"
                 type={type}
                 placeholder={placeholder}
                 {...register(name)} 
