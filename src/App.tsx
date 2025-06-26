@@ -3,6 +3,13 @@ import { z} from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+function validaNascimento(value: string){
+  const data = new Date(value)
+  const hoje = new Date()
+
+    return !isNaN(data.getTime()) && data < hoje;
+}
+
 
 const schama = z.object({
   name: z.string().nonempty("O campo 'Nome' é obrigatório!"),
@@ -12,15 +19,14 @@ const schama = z.object({
   telefone: z.string().min(1, "O campo 'Telefone' é obrigatório!").refine((value) =>  /^(\d{10,11})$/.test(value),{
     message: "Número de telefone invalido!"
   }),
-  nascimento: z.string().nonempty("O campo 'Data de nascimento' é obrigatório!").refine((value) => {
-    const data = new Date(value)
-    const hoje = new Date()
-
-    return !isNaN(data.getTime()) && data < hoje;},
-    {
-      message: "Insira uma data de nascimento válida"
+  nascimento: z.string().nonempty("O campo 'Data de nascimento' é obrigatório!").refine((value) => validaNascimento(value),{
+      message: "Insira uma data de nascimento válida!"
   }),
+  cpf: z.string().refine((value) => /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(value), {
+    message: "Insira um CPF válido!"
+  })
 
+  
 }).refine((data) => data.senha === data.senhanovamente, {
   message: "As senhas não coincidem",
   path: ["senhanovamente"],
@@ -34,6 +40,8 @@ const {register, formState: {errors}} = useForm<FormData>({
   resolver: zodResolver(schama),
   mode: "onChange"
 })
+
+
 
   return(
     <main className="flex m-auto w-full max-w-7xl">
@@ -105,6 +113,18 @@ const {register, formState: {errors}} = useForm<FormData>({
               error={errors.nascimento?.message}
             />
           </div>
+
+           <div>
+            <p>CPF:</p>
+            <Input
+              type="text"
+              name="cpf"
+              placeholder="Digite seu CPF"
+              register={register}
+              error={errors.cpf?.message}
+            />
+          </div>
+
 
           <button className="w-full bg-[#12d473] px-2 h-8 rounded-md font-medium">Cadastrar</button>
 
