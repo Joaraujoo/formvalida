@@ -34,8 +34,6 @@ function onsubmit(data: FormData){
 
 }
 
-
-
   return(
     <main className="flex m-auto w-full max-w-7xl">
       <section className="w-full flex flex-col items-center px-3 justify-center h-screen">
@@ -106,7 +104,7 @@ function onsubmit(data: FormData){
             />
           </div>
 
-          <button className="w-full bg-[#12d473] px-2 h-8 rounded-md font-medium mt-3 cursor-pointer">Cadastrar</button>
+          <button className="w-full bg-[#12d473] px-2 h-8 rounded-md font-medium mt-5 cursor-pointer">Cadastrar</button>
 
         </form>
       </section>
